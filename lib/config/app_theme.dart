@@ -8,6 +8,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primaryColor,
       primary: AppColors.primaryColor,
+      outline: AppColors.outSideColor,
     ),
     textTheme: TextTheme(
       titleMedium: TextStyles.searchHint,

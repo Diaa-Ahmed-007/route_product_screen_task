@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:route_product_screen_task/core/utils/assets.dart';
+import 'package:route_product_screen_task/domain/entities/ProductEntity.dart';
 import 'package:svg_flutter/svg.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  const ProductItemWidget({super.key});
-
+  const ProductItemWidget({super.key, required this.productEntity});
+  final ProductEntity productEntity;
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
-          side: const BorderSide(width: 2, color: Color(0x4C004182)),
+          side: BorderSide(
+              width: 2, color: Theme.of(context).colorScheme.outline),
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -30,12 +31,11 @@ class ProductItemWidget extends StatelessWidget {
                     right: 8,
                     bottom: 90,
                   ),
-                  decoration: const ShapeDecoration(
+                  decoration: ShapeDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(
-                            "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"),
+                        image: NetworkImage(productEntity.images?[0] ?? ""),
                         fit: BoxFit.cover),
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
@@ -71,14 +71,14 @@ class ProductItemWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      "Nike Air Jordon",
+                      productEntity.title ?? "",
                       style: Theme.of(context).textTheme.titleSmall,
                       overflow: TextOverflow.clip,
                     ),
                   ),
                   Expanded(
                     child: Text(
-                      "Nike shoes flexible for wo..",
+                      productEntity.description ?? "",
                       style: Theme.of(context).textTheme.titleSmall,
                       overflow: TextOverflow.clip,
                     ),
@@ -90,14 +90,16 @@ class ProductItemWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "EGP 1,200",
+                          "EGP ${getPriceAfterSale().toStringAsFixed(2)}",
+                          overflow: TextOverflow.clip,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         const SizedBox(
                           width: 16,
                         ),
                         Text(
-                          "2,000",
+                          productEntity.price?.toStringAsFixed(2) ?? "",
+                          overflow: TextOverflow.clip,
                           style: Theme.of(context).textTheme.labelSmall,
                         )
                       ],
@@ -108,7 +110,7 @@ class ProductItemWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "Review (4.6)",
+                          "Review (${productEntity.rating})",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         SvgPicture.asset(Assets.assetsIconsReviewStar),
@@ -129,5 +131,10 @@ class ProductItemWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double getPriceAfterSale() {
+    return productEntity.price! *
+        (1 - (productEntity.discountPercentage! / 100));
   }
 }
