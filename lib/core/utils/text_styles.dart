@@ -6,6 +6,13 @@ class TextStyles {
   static TextStyle searchHint = GoogleFonts.poppins(
     fontSize: 14,
     color: AppColors.searchHintColor,
-
+  );
+  static TextStyle productNameAndDetails =
+      GoogleFonts.roboto(fontSize: 14, color: AppColors.textColor);
+  static TextStyle saleTheme = GoogleFonts.roboto(
+    fontSize: 14,
+    color: AppColors.saleColor,
+    decoration: TextDecoration.lineThrough,
+    decorationColor: AppColors.saleColor,
   );
 }

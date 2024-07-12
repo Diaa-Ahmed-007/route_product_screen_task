@@ -60,6 +60,9 @@ SliverAppBar productViewAppBar(BuildContext context) {
         ),
       ),
     ),
-    toolbarHeight: MediaQuery.sizeOf(context).height * 0.1,
+    toolbarHeight: MediaQuery.sizeOf(context).width > 600 &&
+            MediaQuery.sizeOf(context).height < 450
+        ? MediaQuery.sizeOf(context).height * 0.3
+        : MediaQuery.sizeOf(context).height * 0.1,
   );
 }
