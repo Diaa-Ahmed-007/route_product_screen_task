@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:route_product_screen_task/core/api/api_manager.dart';
@@ -17,6 +19,7 @@ class ProductDataSourceImpl extends ProductDataSource {
       ProductResponse productResponse = ProductResponse.fromJson(response.data);
       return Left(productResponse);
     } catch (error) {
+      log(error.toString());
       return Right(error.toString());
     }
   }
