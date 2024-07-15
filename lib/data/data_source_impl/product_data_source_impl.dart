@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:route_product_screen_task/core/api/api_manager.dart';
 import 'package:route_product_screen_task/core/api/end_points.dart';
@@ -16,8 +17,12 @@ class ProductDataSourceImpl extends ProductDataSource {
       var response = await apiManager.getRequest(endPoints: Endpoints.product);
       ProductResponse productResponse = ProductResponse.fromJson(response.data);
       return Left(productResponse);
-    } catch (error) {
-      return Right(error.toString());
+    } on DioException catch (error) {
+      if (error.response != null) {
+       return Right(error.response?.data.toString()??"");
+      } else {
+        return Right(error.message ?? "");
+      }
     }
   }
 }
