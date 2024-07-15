@@ -19,6 +19,7 @@ SliverAppBar productViewAppBar(BuildContext context) {
             Row(
               children: [
                 Expanded(
+                  flex: 10,
                   child: TextFormField(
                     decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -53,7 +54,8 @@ SliverAppBar productViewAppBar(BuildContext context) {
                 const SizedBox(
                   width: 15,
                 ),
-                SvgPicture.asset(Assets.assetsIconsShoppingCart),
+                Expanded(
+                    child: SvgPicture.asset(Assets.assetsIconsShoppingCart)),
               ],
             ),
           ],
@@ -63,6 +65,6 @@ SliverAppBar productViewAppBar(BuildContext context) {
     toolbarHeight: MediaQuery.sizeOf(context).width > 600 &&
             MediaQuery.sizeOf(context).height < 450
         ? MediaQuery.sizeOf(context).height * 0.3
-        : MediaQuery.sizeOf(context).height * 0.1,
+        : MediaQuery.sizeOf(context).height * 0.15,
   );
 }

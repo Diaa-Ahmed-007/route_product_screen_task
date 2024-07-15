@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:route_product_screen_task/core/utils/assets.dart';
 import 'package:route_product_screen_task/domain/entities/ProductEntity.dart';
@@ -33,7 +34,9 @@ class ProductItemWidget extends StatelessWidget {
                   ),
                   decoration: ShapeDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(productEntity.images?[0] ?? ""),
+                        image: CachedNetworkImageProvider(
+                          productEntity.images?[0] ?? "",
+                        ),
                         fit: BoxFit.cover),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -63,6 +66,9 @@ class ProductItemWidget extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(
+            height: 8,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -77,8 +83,10 @@ class ProductItemWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
+                    flex: 1,
                     child: Text(
                       productEntity.description ?? "",
+                      maxLines: 1,
                       style: Theme.of(context).textTheme.titleSmall,
                       overflow: TextOverflow.clip,
                     ),
